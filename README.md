@@ -1,3 +1,38 @@
+# Astro Talk ChatRoom
+
+Astro Talk ChatRoom is a full-stack web application that allows multiple users to join specific chat rooms anonymously and concurrently, post messages, and view live chat history during an active session.
+
+## Frontend
+The frontend is built using React, JavaScript, CSS, and the socket.io-client library. It is deployed on Netlify.
+
+## Backend
+The backend is developed using Node.js and Express and is deployed on Heroku. You can find the GitHub link to the backend [here](https://github.com/viktoriiazolotova/chat-app-backend).
+
+## Usage
+To use the website, you can access it in two ways:
+
+- Open this [sandbox link](https://lhd4zd-3000.csb.app/) in your browser. You can join the same chat room multiple times, for example, using room ID "1234," and start chatting.
+- Alternatively, you can use the deployed version of the application at [https://astro-live-chat.netlify.app/](https://astro-live-chat.netlify.app/).
+
+## Features
+
+- Multiple users can concurrently and anonymously join specific chat rooms and post messages by clicking the "Send" button or pressing the "Return" on the keyboard.
+- Users can view the live chat history during an active session. Note: currently chat history will be lost after a page refresh.
+- User names, timestamps, and messages are displayed in the chat room.
+- Users can type 'apod' (case-insensitive), and if the Astronomy Picture of the current day is an image, it will be rendered below the chat history. Otherwise, an error message stating "Sorry, no picture today" will be displayed.
+
+## Possible Enhancements (if time would allow)
+
+- Determine a chat history timeframe and connect to a database to save and retrieve chat history.
+- Add the option for users to enter a specific date to retrieve the Astronomy Picture of the Day for that day.
+- Enable users to upload videos or video links if the Astronomy Picture of the Day is a video.
+- Distinguish between local senders and remote users using different colors.
+- Make API calls for Astronomy Picture of the Day images from the backend instead of the frontend to enhance API key security and avoid exposing it on the client side (frontend).
+- Add an option (button "Leave ChatRoom") for users to leave the ChatRoom.
+- Add feature for users to view the list of all present users in the ChatRoom.
+- Enhance error handling, including cases where no name or room ID (name) is entered.
+- Implement unit tests, integration tests, and end-to-end tests to ensure the application's stability and reliability.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

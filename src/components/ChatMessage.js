@@ -5,8 +5,8 @@ import "./ChatMessage.css";
 const ChatMessage = ({ userName, message, time }) => {
   return (
     <div className="chat-message">
-      <p className="user-time-box">
-        {userName} - <span>{time}</span>
+      <p className="username-time-box">
+        {userName}: <span className="message-time">{time}</span>
       </p>
       <p className="message-body">{message}</p>
     </div>

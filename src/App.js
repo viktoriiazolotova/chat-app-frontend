@@ -1,17 +1,15 @@
-import { useState } from "react";
 import io from "socket.io-client";
-import "./App.css";
+import { useState } from "react";
 import ChatRoom from "./components/ChatRoom";
+import { HEADER, SOCKET_SERVER_URL } from "./constants";
+import "./App.css";
 
-// const socket = io.connect("http://localhost:3001");
-const socket = io.connect(
-  "https://chat-app-backend-vz-051a5f838be5.herokuapp.com"
-);
+const socket = io.connect(SOCKET_SERVER_URL);
 
-function App() {
-  const [userName, setUserName] = useState("");
+const App = () => {
   const [room, setRoom] = useState("");
   const [showChatRoom, setShowChatRoom] = useState(false);
+  const [userName, setUserName] = useState("");
 
   const joinRoom = () => {
     if (userName !== "" && room !== "") {
@@ -24,15 +22,15 @@ function App() {
     <div className="App">
       {!showChatRoom && (
         <div className="join-chatroom-div">
-          <h1> Join Astro Talk Chatroom 🌏</h1>
+          <h1> {HEADER}</h1>
           <input
             type="text"
-            placeholder="Enter your name"
+            placeholder="Enter Your Name"
             onChange={(event) => setUserName(event.target.value)}
           ></input>
           <input
             type="text"
-            placeholder="Enter room id"
+            placeholder="Enter Room ID"
             onChange={(event) => setRoom(event.target.value)}
           ></input>
           <button onClick={joinRoom}>Join a Room</button>
@@ -43,6 +41,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;

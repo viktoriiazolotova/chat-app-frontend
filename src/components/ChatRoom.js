@@ -1,25 +1,23 @@
 import axios from "axios";
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
+import { GREETING, HI, REACT_API_KEY, WELCOME_EMOJI } from "../constants";
 import ChatMessageList from "./ChatMessageList";
 import "./ChatRoom.css";
 
-const API_KEY = "4Hu1n4FgqIaKDODxn6dpxLg6hiExQqIP0wPbf9Re";
-
 const ChatRoom = ({ socket, userName, room }) => {
-  const [imageUrl, setImageUrl] = useState("");
-  const [error, setError] = useState("");
   const [currentMessage, setCurrentMessage] = useState("");
+  const [error, setError] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [messages, setMessages] = useState([]);
-  // console.log(messages);
 
   const fetchAPODImageUrl = () => {
-    // currently default date for APOD photo is the current day,
-    //
+    // currently default date for APOD photo is the current day
     const date = new Date().toISOString().split("T")[0];
 
     axios
       .get(
-        `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&date=${date}`
+        `https://api.nasa.gov/planetary/apod?api_key=${REACT_API_KEY}&date=${date}`
       )
       .then((response) => {
         if (response.data.media_type === "image") {
@@ -50,24 +48,26 @@ const ChatRoom = ({ socket, userName, room }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
+  const getCurrentTime = () => {
+    const now = new Date();
+    return `${now.getHours()}:${now.getMinutes()}`;
+  };
+
   const sendMessage = async () => {
     if (currentMessage !== "") {
       const messageData = {
         room: room,
         userName: userName,
         message: currentMessage,
-        time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
+        time: getCurrentTime(),
       };
 
       await socket.emit("send_message", messageData);
-      // console.log(messageData);
       setMessages((prevMessages) => [...prevMessages, messageData]);
       setCurrentMessage("");
     }
   };
+
   useEffect(() => {
     socket.on("receive_message", (data) => {
       setMessages((prevMessages) => [...prevMessages, data]);
@@ -77,8 +77,13 @@ const ChatRoom = ({ socket, userName, room }) => {
   return (
     <div className="chat-room">
       <div className="chat-header">
-        <p>Hi {userName}</p>
-        <p>Welcome to the Chat Room {room}</p>
+        <p>
+          {HI} <span>{userName}</span>
+          {WELCOME_EMOJI}
+        </p>
+        <p>
+          {GREETING} <span>{room}</span>
+        </p>
       </div>
       <div>
         <ChatMessageList className="chat-body" messages={messages} />
@@ -88,6 +93,7 @@ const ChatRoom = ({ socket, userName, room }) => {
       <div className="chat-footer">
         <input
           className="text-input-div"
+          id="messageInput"
           type="text"
           value={currentMessage}
           placeholder="Type your message"
@@ -98,12 +104,18 @@ const ChatRoom = ({ socket, userName, room }) => {
             event.key === "Enter" && sendMessage();
           }}
         ></input>
+
         <button className="send-button" onClick={sendMessage}>
           Send
         </button>
       </div>
     </div>
   );
+};
+ChatRoom.propTypes = {
+  socket: PropTypes.object.isRequired,
+  userName: PropTypes.string.isRequired,
+  room: PropTypes.string.isRequired,
 };
 
 export default ChatRoom;
