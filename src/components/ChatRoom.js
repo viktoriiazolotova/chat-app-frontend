@@ -13,12 +13,9 @@ const ChatRoom = ({ socket, userName, room }) => {
 
   const fetchAPODImageUrl = () => {
     // currently default date for APOD photo is the current day
-    const date = new Date().toISOString().split("T")[0];
 
     axios
-      .get(
-        `https://api.nasa.gov/planetary/apod?api_key=${REACT_API_KEY}&date=${date}`
-      )
+      .get(`https://api.nasa.gov/planetary/apod?api_key=${REACT_API_KEY}`)
       .then((response) => {
         if (response.data.media_type === "image") {
           setImageUrl(response.data.url);
