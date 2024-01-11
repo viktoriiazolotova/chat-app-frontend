@@ -1,4 +1,4 @@
-# Astro Talk ChatRoom
+# Astro Talk
 
 Astro Talk is a full-stack web application that allows multiple users to join specific chat rooms anonymously and concurrently, post messages, and view live chat history during an active session.
 
@@ -30,7 +30,7 @@ To use the website, you can access it in two ways:
 - User names, timestamps, and messages are displayed in the chat room.
 - Users can type 'apod' (case-insensitive), and if the Astronomy Picture of the current day is an image, it will be rendered below the chat history. Otherwise, an error message stating "Sorry, no picture today" will be displayed.
 
-### Possible Enhancements (if time would allow)
+### Future Enhancements
 
 - Determine a chat history timeframe and connect to a database to save and retrieve chat history.
 - Add the option for users to enter a specific date to retrieve the Astronomy Picture of the Day for that day.
